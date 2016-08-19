@@ -3,7 +3,7 @@
     {
       "type": "shell",
       "execute_command": "echo 'service' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
-      "script": "scripts/ansible.sh"
+      "script": "scripts/init.sh"
     },
     {
       "type": "shell",
