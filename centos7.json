@@ -40,12 +40,6 @@
           "{{.Name}}",
           "--memory",
           "512"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--hwvirtex",
-          "off"
         ]
       ]
     }
