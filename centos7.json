@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "ts": "{{timestamp}}"
+  },
   "provisioners": [
     {
       "type": "shell",
@@ -19,6 +22,7 @@
       ],
       "boot_wait": "10s",
       "disk_size": 8192,
+      "hard_drive_interface": "scsi",
       "guest_os_type": "RedHat_64",
       "headless": false,
       "http_directory": "http",
@@ -40,6 +44,28 @@
           "{{.Name}}",
           "--memory",
           "512"
+        ],
+	[
+          "createmedium",
+          "disk",
+          "--size",
+          "1024",
+          "--filename",
+          "elastic-{{user `ts`}}.hd"
+        ],
+	[
+          "storageattach",
+          "{{.Name}}",
+          "--storagectl",
+          "SCSI Controller",
+          "--device",
+          "0",
+          "--port",
+          "1",
+          "--type",
+          "hdd",
+          "--medium",
+          "elastic-{{user `ts`}}.hd"
         ]
       ]
     }

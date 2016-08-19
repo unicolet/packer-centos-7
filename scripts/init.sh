@@ -1,9 +1,21 @@
 #!/bin/bash -eux
 
-# Install EPEL repository.
+pvcreate /dev/sdb
+vgcreate vg_es /dev/sdb
+lvcreate -L500 -nlv_es vg_es
+
+mkfs.xfs /dev/vg_es/lv_es
+mkdir -p /var/lib/elasticsearch
+echo "/dev/vg_es/lv_es /var/lib/elasticsearch xfs defaults,noatime 1 2" >> /etc/fstab
+mount -a
+
+#show the current status
+mount
+
+# Install EPEL repository and software
 yum -y install epel-release wget
 
-wget -O /tmp/jdk-8u102-linux-x64.rpm --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-linux-x64.rpm
+wget -q -O /tmp/jdk-8u102-linux-x64.rpm --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jdk-8u102-linux-x64.rpm
 rpm -ivh /tmp/jdk-8u102-linux-x64.rpm
 
 yum install -y redis
@@ -21,6 +33,7 @@ enabled=1
 EOF
 yum install -y elasticsearch
 chkconfig --add elasticsearch
+chkconfig elasticsearch on
 service elasticsearch start
 
 rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch
@@ -35,4 +48,5 @@ EOF
 yum install -y kibana
 chkconfig --add kibana
 service kibana start
+chkconfig kibana on
 
