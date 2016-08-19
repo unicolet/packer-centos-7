@@ -20,21 +20,20 @@
       "boot_wait": "10s",
       "disk_size": 8192,
       "guest_os_type": "RedHat_64",
-      "headless": true,
+      "headless": false,
       "http_directory": "http",
       "iso_urls": [
-        "https://github.com/unicolet/packer-centos-7.git"
+        "/opt/images/CentOS-7-x86_64-Minimal-1511.iso"
       ],
       "iso_checksum_type": "md5",
-      "iso_checksum": "https://github.com/unicolet/packer-centos-7.git",
+      "iso_checksum": "88c0437f0a14c6e2c94426df9d43cd67",
       "ssh_username": "service",
       "ssh_password": "s3rvice",
       "ssh_port": 22,
       "ssh_wait_timeout": "10000s",
       "shutdown_command": "echo 'service'|sudo -S /sbin/halt -h -p",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "virtualbox_version_file": ".vbox_version",
-      "vm_name": "packer-centos-7-x86_64",
+      "guest_additions_mode": "disable",
+      "vm_name": "middlewareinsight-centos-7-x86_64",
       "vboxmanage": [
         [
           "modifyvm",
@@ -45,10 +44,10 @@
         [
           "modifyvm",
           "{{.Name}}",
-          "--cpus",
-          "2"
+          "--hwvirtex",
+          "off"
         ]
       ]
-    },
+    }
   ]
 }
