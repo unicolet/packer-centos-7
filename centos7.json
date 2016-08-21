@@ -49,7 +49,7 @@
           "createmedium",
           "disk",
           "--size",
-          "1024",
+          "20480",
           "--filename",
           "elastic-{{user `ts`}}.hd"
         ],

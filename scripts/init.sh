@@ -2,7 +2,7 @@
 
 pvcreate /dev/sdb
 vgcreate vg_es /dev/sdb
-lvcreate -L500 -nlv_es vg_es
+lvcreate -L10G -nlv_es vg_es
 
 mkfs.xfs /dev/vg_es/lv_es
 mkdir -p /var/lib/elasticsearch
